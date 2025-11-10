@@ -4,8 +4,11 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, Integer, String, DateTime, Time, Enum
 from datetime import datetime
 import enum
+import os
+from dotenv import load_dotenv
 
-    
+load_dotenv() # This loads the variables from your .env file
+
 Base = declarative_base()
 
 class TaskStatus(enum.Enum):
@@ -22,8 +25,8 @@ class Task(Base):
     end_time = Column(Time)
     status = Column(Enum(TaskStatus), nullable=False, default=TaskStatus.expired)
 
-DATABASE_URL = "mysql+mysqlconnector://root:2067####..@localhost/task_db"
-engine = create_engine(DATABASE_URL)
+db_url = os.getenv("DATABASE_URL")
+engine = create_engine(db_url)
 SessionLocal = sessionmaker(bind=engine)
 
 Base.metadata.create_all(engine)
