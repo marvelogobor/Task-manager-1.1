@@ -1,0 +1,17 @@
+# Python virtual environment
+venv/
+.venv/
+
+# Python cache files
+__pycache__/
+*.pyc
+
+# Your temporary JSON file (You usually don't want to save your personal data)
+task_manager.json
+
+# Your database file (if it has a specific name)
+task.db
+
+# IDE-specific files
+.vscode/
+.idea/

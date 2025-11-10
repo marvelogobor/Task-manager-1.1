@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom to_do</title>
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h1>Add a New Task</h1>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            <div class="flash-messages">
+              {% for category, message in messages %}
+                <div class="alert {{ category }}">{{ message }}</div>
+              {% endfor %}
+            </div>
+          {% endif %}
+        {% endwith %}
+
+        <form action="/add_task" method="POST" class="task-form">
+            <input type="text" name="task_name" placeholder="Task Name" required>
+
+            <div class="spacer"></div>
+            <label for="priority">Select Priority</label>
+            <select name="priority" required>
+                <option value="High">High</option>
+                <option value="Mid" selected>Mid</option>
+                <option value="Low">Low</option>
+            </select>
+
+            <div class="spacer"></div>
+            <label for="end_time">Select end time (hour and minute)</label>
+            <input type="time" name="end_time" id="end_time" step="60" required>
+
+            <div class="spacer"></div>
+            <button type="submit">Add Task</button>
+        </form>
+
+        <a href="{{ url_for('view_tasks') }}" class="back-btn">Back to Task List</a>
+    </div>
+</body>
+</html>

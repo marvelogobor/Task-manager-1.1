@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Task</title>
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h1>Edit Task</h1>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            <div class="flash-messages">
+              {% for category, message in messages %}
+                <div class="alert {{ category }}">{{ message }}</div>
+              {% endfor %}
+            </div>
+          {% endif %}
+        {% endwith %}
+
+        <form action="/edit_task/{{ edit_id }}" method="POST" class="task-form">
+          <div class="form-group">
+            <label for="new_name">Task Name:</label>
+            <input type="text" id="new_name" name="new_name" value="{{ edit_name }}" required>
+          </div>
+
+          <div class="form-group">
+            <label for="new_priority">Priority:</label>
+            <select id="new_priority" name="new_priority">
+              <option value="High" {% if edit_priority == 'High' %}selected{% endif %}>High Priority</option>
+              <option value="Mid" {% if edit_priority == 'Mid' %}selected{% endif %}>Medium Priority</option>
+              <option value="Low" {% if edit_priority == 'Low' %}selected{% endif %}>Low Priority</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="new_end_time">End Time:</label>
+            <input type="time" id="new_end_time" name="new_end_time" value="{{ edit_end_time if edit_end_time else '' }}" required>
+          </div>
+
+          <button type="submit">Save Changes</button>
+          <a href="/" class="cancel-btn">Cancel</a>
+        </form>
+
+        <a href="{{ url_for('view_tasks') }}" class="back-btn">Back to Task List</a>
+    </div>
+</body>
+</html>

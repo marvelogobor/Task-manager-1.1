@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Task</title>
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h1>Task manager + countdown</h1>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            <div class="flash-messages">
+              {% for category, message in messages %}
+                <div class="alert {{ category }}">{{ message }}</div>
+              {% endfor %}
+            </div>
+          {% endif %}
+        {% endwith %}
+
+        <a href="{{ url_for('add_task') }}" class="back-btn">Add New Task</a>
+        
+        <form action="{{ url_for('archive_tasks') }}" method="POST" class="archive-form">
+            <button type="submit" class="archive-btn">Archive Completed Tasks</button>
+        </form>
+
+        {% if tasks %}
+        <div id="task-list">
+            {% for task in tasks %}
+                <div class="task"> <!-- This is the main task container -->
+                    <span class="task-text">{{ task['name'] }} (Priority: {{ task['priority'] }})</span>
+                    <div class="task-actions">
+                        <a href="{{ url_for('edit_task', task_id=task['task_id']) }}" class="edit-btn">Edit</a>
+                        <span class="task-date">Added on: {{ task['date_added'] }}</span>
+                        <span class="task-date">End time: {{ task['end_time'] }}</span>
+                        <span class="task-date">Remaining time: {{ task['remaining_time'] }}</span>
+                        
+                        <span class="countdown" data-task-id="{{task['task_id']}}" data-end="{{ task['end_datetime'] }}"></span>
+                        
+                        <span class ="task-date status">Status: {{ task['status'] }}</span>
+                        
+                        <form action="{{url_for('complete_task', task_id=task['task_id'])}}" method="POST">
+                            <button type="submit" class="status-badge {{ task['status'] | lower }}">
+                                {% if task['status'] | lower == 'completed' %}
+                                    ✅ Completed
+                                {% elif task['status'] | lower == 'active' %}
+                                    🟡 Active
+                                {% else %}
+                                    ❌ Expired
+                                {% endif %}
+                            </button>
+                        </form>
+                        
+                        <form action="{{ url_for('delete_task', task_id=task['task_id']) }}" method="POST">
+                            <button type="submit" class="delete-btn">Delete</button>
+                        </form>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        {% else %}
+            <p>No tasks available. <a href="{{ url_for('add_task') }}">Add a new task</a></p>
+        {% endif %}
+    </div>
+    
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const taskElements = document.querySelectorAll(".task");
+
+        function updateAllTimers() {
+            
+            taskElements.forEach(task => {
+                const statusBadge = task.querySelector('.status-badge');
+                const countdownSpan = task.querySelector('.countdown');
+
+                if (!statusBadge || !countdownSpan) {
+                    return;
+                }
+
+                if (statusBadge.classList.contains('completed')) {
+                    
+                    countdownSpan.innerText = "✅ Completed";
+                
+                } else if (statusBadge.classList.contains('expired')) {
+                    
+                    countdownSpan.innerText = "⛔ Expired";
+                
+                } else if (statusBadge.classList.contains('active')) {
+                    const end = new Date(countdownSpan.dataset.end).getTime();
+                    const now = new Date().getTime();
+                    const diff = end - now;
+
+                    if (diff <= 0) {
+                        countdownSpan.innerText = "⛔ Expired";
+                    } else {
+                        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+                        countdownSpan.innerText = `⏳ ${hours}h ${minutes}m ${seconds}s`;
+                    }
+                }
+            });
+        }
+
+        updateAllTimers();
+
+        setInterval(updateAllTimers, 1000);
+    });
+    </script>
+</body>
+</html>
