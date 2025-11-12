@@ -26,6 +26,9 @@ class Task(Base):
     status = Column(Enum(TaskStatus), nullable=False, default=TaskStatus.expired)
 
 db_url = os.getenv("DATABASE_URL")
+if db_url and db_url.startswith("mysql://"):
+    db_url = db_url.replace("mysql://", "mysql+pymysql://", 1)
+
 engine = create_engine(db_url)
 SessionLocal = sessionmaker(bind=engine)
 
