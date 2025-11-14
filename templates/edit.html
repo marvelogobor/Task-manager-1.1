@@ -4,47 +4,40 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Task</title>
+
     <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
 </head>
 <body>
     <div class="container">
-        <h1>Edit Task</h1>
+        <h2>Edit Task</h2>
 
-        {% with messages = get_flashed_messages(with_categories=true) %}
-          {% if messages %}
-            <div class="flash-messages">
-              {% for category, message in messages %}
-                <div class="alert {{ category }}">{{ message }}</div>
-              {% endfor %}
+      
+        <form action="{{ url_for('edit_task', task_id=task['task_id']) }}" method="POST">
+            
+            <div class="form-group">
+                <label for="new_name">Task Name</label>
+                
+                <input type="text" id="new_name" name="new_name" value="{{ task['name'] }}" required>
             </div>
-          {% endif %}
-        {% endwith %}
 
-        <form action="/edit_task/{{ edit_id }}" method="POST" class="task-form">
-          <div class="form-group">
-            <label for="new_name">Task Name:</label>
-            <input type="text" id="new_name" name="new_name" value="{{ edit_name }}" required>
-          </div>
+            <div class="form-group">
+                <label for="new_priority">Priority</label>
+                <select id="new_priority" name="new_priority">
+                    <option value="High" {% if task['priority'] == 'High' %}selected{% endif %}>High</option>
+                    <option value="Mid" {% if task['priority'] == 'Mid' %}selected{% endif %}>Mid</option>
+                    <option value="Low" {% if task['priority'] == 'Low' %}selected{% endif %}>Low</option>
+                </select>
+            </div>
 
-          <div class="form-group">
-            <label for="new_priority">Priority:</label>
-            <select id="new_priority" name="new_priority">
-              <option value="High" {% if edit_priority == 'High' %}selected{% endif %}>High Priority</option>
-              <option value="Mid" {% if edit_priority == 'Mid' %}selected{% endif %}>Medium Priority</option>
-              <option value="Low" {% if edit_priority == 'Low' %}selected{% endif %}>Low Priority</option>
-            </select>
-          </div>
+            <div class="form-group">
+                <label for="new_end_time">End Time (HH:MM)</label>
+                <input type="time" id="new_end_time" name="new_end_time" value="{{ task['end_time'] }}">
+            </div>
 
-          <div class="form-group">
-            <label for="new_end_time">End Time:</label>
-            <input type="time" id="new_end_time" name="new_end_time" value="{{ edit_end_time if edit_end_time else '' }}" required>
-          </div>
-
-          <button type="submit">Save Changes</button>
-          <a href="/" class="cancel-btn">Cancel</a>
+            <button type="submit" class="btn">Save Changes</button>
         </form>
 
-        <a href="{{ url_for('view_tasks') }}" class="back-btn">Back to Task List</a>
+        <a href="{{ url_for('view_tasks') }}" class="back-btn" style="margin-top: 20px;">Cancel</a>
     </div>
 </body>
 </html>

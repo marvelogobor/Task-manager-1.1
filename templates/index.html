@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Custom to_do</title>
+    <title>Add a New Task</title>
     <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
 </head>
 <body>
@@ -20,26 +20,31 @@
           {% endif %}
         {% endwith %}
 
-        <form action="/add_task" method="POST" class="task-form">
-            <input type="text" name="task_name" placeholder="Task Name" required>
+        <form action="{{ url_for('add_task') }}" method="POST">
+            
+            <div class="form-group">
+                <label for="task_name">Task Name</label>
+                <input type="text" id="task_name" name="task_name" required>
+            </div>
 
-            <div class="spacer"></div>
-            <label for="priority">Select Priority</label>
-            <select name="priority" required>
-                <option value="High">High</option>
-                <option value="Mid" selected>Mid</option>
-                <option value="Low">Low</option>
-            </select>
+            <div class="form-group">
+                <label for="priority">Priority</label>
+                <select id="priority" name="priority">
+                    <option value="High">High</option>
+                    <option value="Mid" selected>Mid</option>
+                    <option value="Low">Low</option>
+                </select>
+            </div>
 
-            <div class="spacer"></div>
-            <label for="end_time">Select end time (hour and minute)</label>
-            <input type="time" name="end_time" id="end_time" step="60" required>
+            <div class="form-group">
+                <label for="end_time">End Time (HH:MM)</label>
+                <input type="time" id="end_time" name="end_time">
+            </div>
 
-            <div class="spacer"></div>
-            <button type="submit">Add Task</button>
+            <button type="submit" class="btn">Add Task</button>
         </form>
 
-        <a href="{{ url_for('view_tasks') }}" class="back-btn">Back to Task List</a>
+        <a href="{{ url_for('view_tasks') }}" class="back-btn" style="margin-top: 20px;">View All Tasks</a>
     </div>
 </body>
 </html>

@@ -2,7 +2,7 @@
 /* 🌑 GLOBAL THEME SETUP */
 /* ----------------------------- */
 
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
 
 * {
     margin: 0;
@@ -24,22 +24,18 @@ body {
 
 .container {
     max-width: 700px;
-    margin: 60px auto;
+    margin: 40px auto;
     background: #1e1e1e;
     padding: 30px;
     border-radius: 15px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
 
 h1, h2, h3 {
     color: #ffd700;
     text-align: center;
-    margin-bottom: 20px;
-}
-
-/* Spacer utility */
-.spacer {
-    height: 30px;
+    margin-bottom: 25px;
+    font-weight: 600;
 }
 
 /* ----------------------------- */
@@ -61,22 +57,25 @@ label {
     margin-bottom: 5px;
     color: #f0f0f0;
     font-weight: 500;
+    font-size: 0.9rem;
 }
 
 input, select, textarea {
     width: 100%;
-    padding: 10px;
+    padding: 12px;
     background: #2b2b2b;
     color: #fff;
     border: 1px solid #444;
     border-radius: 8px;
     font-size: 1rem;
-    transition: border-color 0.2s ease;
+    font-family: 'Poppins', sans-serif;
+    transition: all 0.3s ease;
 }
 
 input:focus, select:focus, textarea:focus {
     border-color: #ffd700;
     outline: none;
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.2);
 }
 
 /* ----------------------------- */
@@ -84,19 +83,26 @@ input:focus, select:focus, textarea:focus {
 /* ----------------------------- */
 
 button, .btn {
-    background: #ffd700;
+    background: linear-gradient(145deg, #ffd700, #e5c100);
     color: #000;
-    padding: 10px 15px;
+    padding: 12px 15px;
     border: none;
     border-radius: 8px;
     cursor: pointer;
     font-weight: 600;
-    transition: background 0.3s ease, transform 0.1s ease;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
 button:hover, .btn:hover {
-    background: #e5c100;
+    background: linear-gradient(145deg, #e5c100, #ffd700);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
     transform: translateY(-2px);
+}
+
+button:active, .btn:active {
+    transform: translateY(0);
 }
 
 a {
@@ -110,7 +116,6 @@ a:hover {
     color: #fff;
 }
 
-/* Back button styling */
 .back-btn {
     display: inline-block;
     margin-top: 15px;
@@ -121,90 +126,121 @@ a:hover {
     border-radius: 6px;
     text-decoration: none;
     font-weight: 500;
-    transition: background 0.3s ease, color 0.3s ease;
+    transition: all 0.3s ease;
 }
 
 .back-btn:hover {
     background: #444;
     color: #fff;
+    transform: translateY(-2px);
 }
 
-/* --- Archive Button (NEW) --- */
 .archive-form {
     display: inline-block;
-    margin-left: 10px; /* To space it from the Add button */
-    /* Make sure it aligns well with the link next to it */
+    margin-left: 10px;
     vertical-align: middle; 
 }
 
 .archive-btn {
     display: inline-block;
     text-align: center;
-    background: #333;    /* Same style as your back-btn */
-    color: #ffd700;       /* Same style as your back-btn */
+    background: #333;
+    color: #ffd700;
     padding: 8px 12px;
     border: none;
-    border-radius: 6px;  /* Same style as your back-btn */
+    border-radius: 6px;
     text-decoration: none;
     font-weight: 500;
     cursor: pointer;
-    transition: background 0.3s ease, color 0.3s ease;
-    font-family: 'Poppins', sans-serif; /* Ensure font matches */
-    font-size: 0.9rem; /* Match button/link size */
+    transition: all 0.3s ease;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.9rem;
 }
 
 .archive-btn:hover {
     background: #444;
     color: #fff;
+    transform: translateY(-2px);
 }
 /* ----------------------------- */
 /* 🗂️ TASK LISTS */
 /* ----------------------------- */
 
 #task-list {
-    margin-top: 20px;
+    margin-top: 30px;
 }
 
 .task {
     background: #2b2b2b;
-    padding: 15px;
+    padding: 20px;
     border-radius: 10px;
-    margin-bottom: 10px;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
+    margin-bottom: 15px;
     border-left: 5px solid #ffd700;
+    transition: all 0.3s ease;
+}
+
+.task:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
 }
 
 .task-text {
-    font-size: 1.1rem;
-    font-weight: 500;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #fff;
+}
+
+.task-details {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    align-items: center;
+    margin-top: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #444;
+}
+
+.task-date {
+    font-size: 0.85rem;
+    color: #aaa;
 }
 
 .task-actions {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
     flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 15px;
 }
 
-.task-date {
-    font-size: 0.9rem;
-    color: #aaa;
+/* This is for the forms holding the buttons */
+.task-action-form {
+    margin: 0;
+    padding: 0;
+    display: inline-block;
 }
 
 .edit-btn, .delete-btn {
-    background: #ffd700;
-    color: #000;
-    padding: 6px 12px;
+    background: #444;
+    color: #fff;
+    padding: 8px 14px;
     border: none;
     border-radius: 6px;
     cursor: pointer;
     font-weight: 500;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.edit-btn {
+    background: #ffd700;
+    color: #000;
 }
 
 .edit-btn:hover {
     background: #e5c100;
+    transform: translateY(-2px);
 }
 
 .delete-btn {
@@ -214,6 +250,7 @@ a:hover {
 
 .delete-btn:hover {
     background: #ff1a1a;
+    transform: translateY(-2px);
 }
 
 /* ----------------------------- */
@@ -225,33 +262,44 @@ a:hover {
     font-size: 1rem;
     color: #00ff88;
     font-weight: bold;
+    background: #222;
+    padding: 2px 8px;
+    border-radius: 4px;
 }
 
 /* STATUS BADGES ONLY */
 .status-badge {
   display: inline-block;
-  padding: 6px 14px;
+  padding: 8px 14px;
   border-radius: 20px;
   font-weight: 600;
   font-size: 0.9rem;
   border: none;
   cursor: pointer;
   transition: all 0.3s ease;
+  min-width: 120px; /* Gives them a uniform size */
+  text-align: center;
+}
+
+.status-badge:hover {
+    transform: translateY(-2px);
 }
 
 /* 🟡 Active */
 .status-badge.active {
   background-color: #fff4ce;
   color: #b58900;
+  box-shadow: 0 0 10px rgba(255, 244, 206, 0.2);
 }
 
 /* ✅ Completed */
 .status-badge.completed {
   background-color: #d1fae5;
   color: #047857;
+  box-shadow: 0 0 10px rgba(209, 250, 229, 0.2);
 }
 
-/* ❌ Expired (unclickable) */
+/* ❌ Expired */
 .status-badge.expired {
   background-color: #fee2e2;
   color: #b91c1c;
@@ -265,22 +313,46 @@ a:hover {
 /* ----------------------------- */
 
 .flash-messages {
-    margin-bottom: 15px;
+    margin-bottom: 20px;
 }
 
 .alert {
-    padding: 10px 15px;
+    padding: 12px 15px;
     border-radius: 8px;
     margin-top: 10px;
     font-weight: 500;
+    border-left: 5px solid;
 }
 
 .alert.success {
-    background: #00c853;
-    color: #fff;
+    background: #1a3a2a;
+    color: #d1fae5;
+    border-color: #00c853;
 }
 
 .alert.error {
-    background: #e53935;
-    color: #fff;
+    background: #4d1c1c;
+    color: #fee2e2;
+    border-color: #e53935;
+}
+
+/* ----------------------------- */
+/* 📱 RESPONSIVE DESIGN */
+/* ----------------------------- */
+
+@media (max-width: 600px) {
+    .container {
+        margin: 20px;
+        padding: 20px;
+    }
+
+    .task-details {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+
+    .task-actions {
+        justify-content: flex-start;
+    }
 }
