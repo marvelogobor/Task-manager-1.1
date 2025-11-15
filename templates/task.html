@@ -25,9 +25,11 @@
             <button type="submit" class="archive-btn">Archive Completed Tasks</button>
         </form>
 
-        {% if tasks_view %}
+        <!-- THE FIX IS HERE -->
+        {% if tasks %}
         <div id="task-list">
-            {% for task in tasks_view %}
+            <!-- AND THE FIX IS HERE -->
+            {% for task in tasks %}
                 <div class="task"> 
                     <span class="task-text">{{ task['name'] }} (Priority: {{ task['priority'] }})</span>
                     
