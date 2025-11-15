@@ -1,10 +1,10 @@
 from flask import Flask, flash, render_template, request, redirect, url_for
-from task_manager import Task_manager  # This now uses the refactored class
+from task_manager import Taskmanager  # This now uses the refactored class
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'good'
 
-task_manager = Task_manager()
+task_manager = Taskmanager()
 
 @app.route('/')
 def home():
